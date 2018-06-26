@@ -152,7 +152,7 @@ LoadPlugin write_graphite
 $ /etc/init.d/collectd restart
 ```
 
- - Browse to Graphite and look for the new metrics:
+ - Browse to Graphite and look for the new metrics (under <container-id>:
 
 ```
 $ http://localhost:5000/
@@ -160,170 +160,59 @@ $ http://localhost:5000/
 
 ### Add a Data Source and Create a Grafana Dashboard
 
- - Click Create data source in the main dashboard and fill in the form as follows:
+ - Click Create data source in the main dashboard:
 
+![Image 1](Images/basic-monitoring-lab-01.png)
+ 
+ - Fill the form as follows:
+ 
 ```
-Name: Graphite
+Name: my-graphite-server
 Type: Graphite
-URL: http://graphite:5000
+URL: http://graphite:8080
 Access: Server (Default)
 Version: <Select the newest available>
 ```
 
+![Image 2](Images/basic-monitoring-lab-02.png)
+
  - Click New dashboard to create and customize a new panel:
 
+![Image 3](Images/basic-monitoring-lab-03.png)
 
+ - Select "Graph":
 
-### Jenkins Configuration
+![Image 4](Images/basic-monitoring-lab-04.png)
 
- - Browse to the jenkins portal:
+ - Edit the graph by click "Edit":
+
+![Image 5](Images/basic-monitoring-lab-05.png)
+
+ - Configure the "General" section with the below:
+
+![Image 6](Images/basic-monitoring-lab-06.png)
+
+ - Configure the "Metrics" section with the below:
+
+![Image 7](Images/basic-monitoring-lab-07.png)
+
+ - Configure the "Axes" section with the below:
+
+![Image 8](Images/basic-monitoring-lab-08.png)
+
+ - Save the dashboard:
+
+![Image 9](Images/basic-monitoring-lab-09.png)
+
+ - You will be asked for the dashboard name and folder, set the following:
 
 ```
-http://jenkins.sela.com:8080
+New name: my-first-dashboard
+Folder: General
 ```
 
- - Unlock jenkins using the administrator password, use the command below to retrieve it:
+![Image 10](Images/basic-monitoring-lab-10.png)
 
-```
-$ docker exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword
-```
-
-![Image 1](Images/lab01-jenkins-01.png)
-
- - Select "Install suggested plugins" and wait for the plugins to being installed: 
-
-![Image 2](Images/lab01-jenkins-02.png)
+ - Good Job! You already know all the basics to start monitoring, now it only remains to explore on your own :)
  
- - Set "http://jenkins.sela.com:8080" as the Jenkins URL: 
-
-![Image 3](Images/lab01-jenkins-03.png)
-
- - You will be asked for credentials, set the details below:
-
-```
-Username: administrator
-Password: administrator
-FullName: administrator
-Email: administrator@administrator.com
-```
-
-![Image 4](Images/lab01-jenkins-04.png)
- 
- - You can update the user details from "Manage Jenkins"/"Manage Users"/<settings icon>
-
-
-
-
-### Jenkins Slave Configuration
-
- - Create a new folder to be used for the Jenkins slave:
-
-```
-$ sudo mkdir /home/jenkins
-$ sudo chmod 777 /home/jenkins
-```
-
- - Configure the ubuntu server as a jenkins slave, start creating a new node in the jenkins portal:
-
-```
-"Manage Jenkins" / "Manage Nodes" / "New Node"
-Set "slave" as name and select "Permanent Agent"
-number of executors: 5
-Remote root directory: /home/jenkins
-Labels: slave
-Launch method: Launch agent via java web start
-```
- 
-![Image 5](Images/lab01-slave-01.png)
- 
-![Image 6](Images/lab01-slave-02.png)
-
- - Run the slave using the secret shown in the node page and the "agent.jar" from the "infrastructure" repository:
-
-```
-$ cd ~/infrastructure
-$ java -jar -jnlpUrl http://jenkins.sela.com:8080/computer/slaves/slave-agent.jnlp -secret <secret> -workDir "/home/jenkins"
-```
- 
-![Image 7](Images/lab01-slave-03.png)
-
- - If you exit from the terminal (or interrupt the process), the slave will be disconnected.
-
-
-### GitLab Configuration
-
- - Browse to the gitlab portal:
-
-```
-http://gitlab.sela.com
-```
-
- - The first time you will asked for set the admin password, set the password below:
-
-```
-administrator
-```
-
-![Image 8](Images/lab01-gitlab-01.png)
-
- - Then, to login use the following credentials:
-
-```
-Username: root
-Password: administrator
-```
-
-![Image 9](Images/lab01-gitlab-02.png)
-
-
-
-
-### Environment Sanity Test
-
- - Create a new repository to test the configuration by click "Create a Project":
-
-![Image 10](Images/lab01-sanitiy-01.png)
-
- - Set the repository name (set-up-test) with "public" visibility:
-
-![Image 11](Images/lab01-sanitiy-02.png)
-
- - Add a README file to the repository:
-
-```
-README.md --> "Hello World!"
-```
-
-![Image 12](Images/lab01-sanitiy-03.png)
-
- - Copy the repository URL":
-
-![Image 13](Images/lab01-sanitiy-04.png)
-
- - Browse to Jenkins and create a new "Freestyle Job" with the configuration below:
-
-```
-Name: set-up-test
-SCM --> Git: http://gitlab.sela.com/root/set-up/test.git
-Restrict where this project can be run: slave
-Execute Shell: cat README.md
-```
-
-![Image 14](Images/lab01-sanitiy-05.png)
-
-![Image 15](Images/lab01-sanitiy-06.png)
-
-![Image 16](Images/lab01-sanitiy-07.png)
-
-
-
-
-## Tips
-
- - You can look for the ubuntu server IP to access to jenkins and gitlab from the host instead of from the VM:
-
-```
-$ sudo ifconfig | grep inet
-http://<server-ip>:8080 (jenkins)
-http://<server-ip>:80 (gitlab)
-```
+ ![Image 11](Images/basic-monitoring-lab-11.png)
