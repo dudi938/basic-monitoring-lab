@@ -1,5 +1,5 @@
 # Basic Monitoring
-Lab: Basic monitoring using Docker containers
+Lab: Basic monitoring using Grafana, Graphite and Collectd with Docker containers
 
 ---
 
