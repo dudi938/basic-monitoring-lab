@@ -6,23 +6,21 @@ Lab: Basic monitoring using Docker containers
 ## Setting up the environment
 
 
-### Initialize the environment
-
  - Clone the repository to get the docker-compose file
 
 ```
 $ git clone https://github.com/leonjalfon1/basic-monitoring-lab.git
 $ cd basic-monitoring-lab
 ```
-
  - Set up the environment by run:
 
 ```
 $ docker-compose up -d
 ```
 
+***
 
-### Exploring Grafana
+## Exploring Grafana
 
 
  - Browse to the Grafana portal:
@@ -46,9 +44,9 @@ password: admin
 
  - Explore Grafana on your own
  
- 
+ ***
 
-### Exploring Graphite
+## Exploring Graphite
 
 
  - Browse to the Graphite portal:
@@ -66,9 +64,9 @@ password: root
 
  - Explore Graphite on your own
  
- 
+ ***
 
-### Exploring the application
+## Exploring the application
 
  - Browse to the application page:
 
@@ -76,9 +74,9 @@ password: root
 $ http://localhost:80
 ```
 
+ ***
  
- 
-### Configure collectd in the application server
+## Configure collectd in the application server
 
  - Move to the application container terminal:
 
@@ -158,7 +156,9 @@ $ /etc/init.d/collectd restart
 $ http://localhost:5000/
 ```
 
-### Add a Data Source and Create a Grafana Dashboard
+***
+
+## Add a Data Source and Create a Grafana Dashboard
 
  - Click Create data source in the main dashboard:
 
@@ -216,3 +216,4 @@ Folder: General
  - Good Job! You already know all the basics to start monitoring, now it only remains to explore on your own :)
  
  ![Image 11](Images/basic-monitoring-lab-11.png)
+ 
